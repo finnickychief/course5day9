@@ -187,11 +187,57 @@
       getVolume
       toString - return a string representation of the object
 
+ 
+  
 
 
 
 
 
 
+
+*/
+
+class RectangularPrism {
+  constructor(width, length, height) {
+    this.width = width;
+    this.length = length;
+    this.height = height;
+  }
+
+  getWidth() {
+    return this.width;
+  }
+  setWidth(newWidth) {
+    this.width = newWidth;
+  }
+  getLength() {
+    return this.length;
+  }
+  setLength(newLength) {
+    this.length = newLength;
+  }
+  getHeight() {
+    return this.height;
+  }
+  setHeight(newHeight) {
+    this.height = newHeight;
+  }
+
+  getVolume() {
+    return this.width * this.length * this.height;
+  }
+
+  toString() {
+    // Generate a String representation of the object
+    return `This RectangularPrism has a width of ${this.width}, a length of ${
+      this.length
+    } and a height of ${this.height}. Its volume is ${this.getVolume()}.`;
+  }
+}
+
+/*
+  Lab: 
+    Create a class to encompass the individual zodiac animal Cards from yesterday's application. The class should contain all of the information necessary to generate a DOM element for an animal, as well as methods to set and get the properties, and a method to retrieve the DOM representation altogether.
 
 */
