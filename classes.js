@@ -238,6 +238,21 @@ class RectangularPrism {
 
 /*
   Lab: 
-    Create a class to encompass the individual zodiac animal Cards from yesterday's application. The class should contain all of the information necessary to generate a DOM element for an animal, as well as methods to set and get the properties, and a method to retrieve the DOM representation altogether.
+    Create a class to encompass the individual zodiac animal Cards from yesterday's application. 
+    The class should contain all of the information necessary to generate a DOM element for an animal, as well as methods to set and get the properties, and a method to retrieve the DOM representation altogether.
+
+    Current steps:
+      Create a div <--- THIS will be the element you generate with your class
+      Create animal image
+      Create chinese character image
+      Create sound Icon
+      Add english/pinyin names
+      Generate year list
+
+    Information tied to each card:
+      eng, chi, pin, year
+
+      method to build out the HTML element that represents the card
+
 
 */
