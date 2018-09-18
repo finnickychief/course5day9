@@ -56,7 +56,80 @@
       console.log(`${this.name} walks on ${this.numLegs} legs`);
     }
   }
+
+  A note for methods on classes:
+    Just like prototypical inheritance, the methods on classes create only ONE copy of the method. Each new instantiation of the class refers to the same method, they do not create their own to use.
   
+  Taking care of parameters that are left out of methods
+  An issue with creating functions(and classes) is that sometimes we want users to have optional parameters. To add default values to any function, you can set a default value in the parameter list
+  function sayHello(name = 'John Doe'){
+    console.log(name);
+  }
+
+  If the name is left out when the function is called, the name will default to 'John Doe'
+
+  The main issue with using default parameters is that order matters with function parameters. 
+
+  let dog = new Animal('canine', 4, 'Rex');
+  dog.speak() // undefined says Rex - not what we intended for the name or sound
+
+  // Two ways to fix:
+  constructor(type='animal', numLegs = 2, noise = 'Unknown', name = 'Fluffy');
+  Leave off the noise:
+  let dog = new Animal('canine', 4, undefined, 'Rex'); 
+  This is cumbersome when writing new declarations of our object.
+
+  // OR - Instead of passing an argument list, pass in an object when creating an instance of the class
+  constructor(options){
+    this.type = options.type || 'animal'; // If options.type exists, use that value. Otherwise, default to animal
+    this.numLegs = options.numLegs || 2;
+    this.noise = options.noise || 'Unknown';
+    this.name = options.name || 'Fluffy';
+  }
+
+  let dog = { // Put in as many or as few properties as you want to to set it up. AND the order does not matter
+    name: 'Rex',
+    numLegs: 4,
+  }
+  dog = new Animal(dog);
+
+
+
+  Animal - 
+
+  Shape - 
+    properties:
+      number of Sides
+      color
+      size - List of properties for that type of object
+      Circle would have radius, rectangle would have width and length, prism would also height
+
+    Functions
+      getArea
+      getVolume
+
+  let circle = new Shape();
+
+  Vehicle -
+    properties:
+      make
+      model
+      numWheels
+      price
+      year
+      color
+      type
+      transmission
+      vin
+
+  let car = new Vehicle()
+
+
+
+
+
+
+
 
 
 
