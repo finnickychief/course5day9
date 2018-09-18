@@ -97,18 +97,18 @@
 
   Animal - 
 
-  Shape - 
+  Circle - 
     properties:
-      number of Sides
+      number of Sides - Useful for other shapes
       color
-      size - List of properties for that type of object
-      Circle would have radius, rectangle would have width and length, prism would also height
+      size/radius
+      
 
     Functions
       getArea
-      getVolume
+      getVolume - Would be useful for 3d shapes
 
-  let circle = new Shape();
+  let circle = new Circle();
 
   Vehicle -
     properties:
@@ -126,7 +126,66 @@
 
 
 
+  class Circle {
+    constructor(radius, color){
+      this.radius = radius;
+      this.color = color;
+      this.area = radius**2 * Math.PI;
+      this.diameter = radius * 2;
+    }
 
+    getArea() {
+     // return Math.PI * this.radius**2; // pre setRadius
+      return this.area;
+    }
+
+    getDiameter() {
+      return this.diameter;
+    }
+    
+    // Accessors ( getters ) and Mutators ( setters )
+    getRadius(){ // getter
+      return this.radius;
+    }
+    setRadius(newRadius){ // setter
+      this.radius = newRadius;
+      this.area = newRadius**2 * Math.PI; // Calculate only when the radius is changed to save on operations whenever we need to use the area
+      this.diameter = newRadius * 2;
+    }
+  }
+
+  class Vehicle {
+    constructor(vehicle){ // vehicle will be an object
+      // this.make = typeof vehicle.make === 'string' ? vehicle.make : 'Please give me a String' // Not particularly effective validation
+      this.make = vehicle.make || ''
+      this.model = vehicle.model || ''
+      this.numWheels = vehicle.numWheels || ''
+      this.price = vehicle.price || ''
+      this.year = vehicle.year || ''
+      this.color = vehicle.color || ''
+      this.type = vehicle.type || ''
+      this.transmission = vehicle.transmission || ''
+      this.vin = vehicle.vin || ''
+    }
+
+    toString(){
+      return `This vehicle is of make: ${this.make}`;
+    }
+
+  }
+
+  let vehicle = {make: 'chevy', model: 'cavalier', year: 2000, color: 'white'}
+
+  vehicle = new Vehicle(vehicle);
+
+  Create a class RectangularPrism:
+    properties:
+      width, height, length
+
+    methods:
+      get/set on each of the properties
+      getVolume
+      toString - return a string representation of the object
 
 
 
