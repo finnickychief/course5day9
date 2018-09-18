@@ -45,56 +45,15 @@ function renderAll(arr) {
 
   // Loop through the array provided and build out the cards for the animals
   for (let i = 0; i < arr.length; i++) {
-    // Build the card container
-    let divo = document.createElement('div');
-    divo.className = 'divvy';
-    app.appendChild(divo);
+    // let currentCard = new ZodiacCard(
+    //   arr[i].eng,
+    //   arr[i].chi,
+    //   arr[i].pin,
+    //   arr[i].year
+    // );
+    let currentCard = new ZodiacCard(arr[i]);
 
-    // Add animal image
-    let pic = new Image();
-    pic.src = `images/${arr[i].eng}.jpg`;
-    pic.className = 'pic';
-    pic.style.cssText = 'width:100px;';
-    divo.appendChild(pic);
-
-    // Add chinese character image
-    let char = new Image();
-    char.src = `images/char-${arr[i].chi}.jpg`;
-    char.className = 'pic';
-    divo.appendChild(char);
-
-    // Add sound icon plus playSound functionality
-    let icon = new Image();
-    icon.src = 'images/sound-icon.png';
-    icon.className = 'pic';
-    icon.style.cssText = 'width: 50px; cursor: pointer; padding-bottom: 15px;';
-    icon.addEventListener('click', playSound);
-    icon.name = arr[i].eng; // Make the english name available for our playSound function
-    divo.appendChild(icon);
-
-    let span = document.createElement('span');
-    span.className = 'spanny';
-    divo.appendChild(span);
-
-    // Add english and pinyin names, each in its own span.
-    span.innerHTML = `<span class="en">${arr[i].eng}</span>`;
-    span.innerHTML += `<span class="pn">${arr[i].pin}</span>`;
-
-    // Generate year list for each animal
-    let startYear = arr[i].year - 360; // 30 12-year cycles into past
-    let endYear = arr[i].year + 180; // 15 12-year cycles into future
-    let years = ''; // Declare the string to store the years
-
-    // Create list in increments of 12
-    for (let j = startYear; j <= endYear; j += 12) {
-      if (j === arr[i].year) {
-        // Highlight the last year the cycle hit this animal
-        years += `<span style="color: red; font-weight: bold">${j}</span> `;
-      } else {
-        years += `${j} `;
-      }
-    }
-    span.innerHTML += years; // Output the year list
+    app.appendChild(currentCard.generateElement());
   } // End for-loop
 }
 
@@ -141,6 +100,98 @@ function sortByKey(key) {
   });
   console.log(sortObj);
   renderAll(arry);
+}
+
+/*
+    Current steps:
+      Create a div <--- THIS will be the element you generate with your class
+      Create animal image
+      Create chinese character image
+      Create sound Icon
+      Add english/pinyin names
+      Generate year list
+
+    Information tied to each card:
+      eng, chi, pin, year
+
+      method to build out the HTML element that represents the card
+*/
+
+class ZodiacCard {
+  constructor(animalInfo) {
+    this.eng = animalInfo.eng;
+    this.chi = animalInfo.chi;
+    this.pin = animalInfo.pin;
+    this.year = animalInfo.year;
+  }
+
+  generateAnimalImage() {
+    // Add animal image
+    let pic = new Image();
+    pic.src = `images/${this.eng}.jpg`;
+    pic.className = 'pic';
+    pic.style.cssText = 'width:100px;';
+    return pic;
+  }
+  generateChiImage() {
+    // Add chinese character image
+    let char = new Image();
+    char.src = `images/char-${this.chi}.jpg`;
+    char.className = 'pic';
+    return char;
+  }
+
+  generateSoundIcon() {
+    // Add sound icon plus playSound functionality
+    let icon = new Image();
+    icon.src = 'images/sound-icon.png';
+    icon.className = 'pic';
+    icon.style.cssText = 'width: 50px; cursor: pointer; padding-bottom: 15px;';
+    icon.addEventListener('click', playSound);
+    icon.name = this.eng; // Make the english name available for our playSound function
+    return icon;
+  }
+
+  generateText() {
+    let span = document.createElement('span');
+    span.className = 'spanny';
+
+    // Add english and pinyin names, each in its own span.
+    span.innerHTML = `<span class="en">${this.eng}</span>`;
+    span.innerHTML += `<span class="pn">${this.pin}</span>`;
+
+    // Generate year list for each animal
+    let startYear = this.year - 360; // 30 12-year cycles into past
+    let endYear = this.year + 180; // 15 12-year cycles into future
+    let years = ''; // Declare the string to store the years
+
+    // Create list in increments of 12
+    for (let j = startYear; j <= endYear; j += 12) {
+      if (j === this.year) {
+        // Highlight the last year the cycle hit this animal
+        years += `<span style="color: red; font-weight: bold">${j}</span> `;
+      } else {
+        years += `${j} `;
+      }
+    }
+    span.innerHTML += years; // Output the year list
+
+    return span;
+  }
+
+  // Generate an HTML element using the information provided.
+  generateElement() {
+    // Build the card container
+    let divo = document.createElement('div');
+    divo.className = 'divvy';
+
+    divo.appendChild(this.generateAnimalImage());
+    divo.appendChild(this.generateChiImage());
+    divo.appendChild(this.generateSoundIcon());
+    divo.appendChild(this.generateText());
+
+    return divo;
+  }
 }
 
 // This event listener waits for all DOM content to fully load before running the javascript within the callback. So after everything in the HTML, CSS and JS is loaded it will run.
